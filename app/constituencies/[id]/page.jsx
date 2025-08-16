@@ -1,25 +1,32 @@
 import Link from 'next/link'
-import constituencies from '../../../public/data/constituencies.json'
 import fs from 'node:fs'
 import path from 'node:path'
 
-export async function generateStaticParams(){
-  return Object.keys(constituencies).map(id=>({id}))
+function readJSON(rel) {
+  const p = path.join(process.cwd(), 'public', 'data', rel)
+  return JSON.parse(fs.readFileSync(p, 'utf-8'))
+}
+function readResults(id) {
+  const p = path.join(process.cwd(), 'public', 'data', 'ge2024_results.csv')
+  const rows = fs.readFileSync(p,'utf-8').trim().split('\n').slice(1)
+    .map(line => line.split(',').map(s=>s.trim()))
+    .filter(r => r[0].endsWith(id))
+    .map(r => ({ party:r[1], person:r[2], votes:+r[3], share:+r[4], position:+r[5], elected:r[6]==='true' }))
+  return rows
 }
 
-function readResults(id){
-  const p = path.join(process.cwd(),'public','data','ge2024_results.csv')
-  const txt = fs.readFileSync(p,'utf-8').trim().split('\n').slice(1)
-  const rows = txt.map(line => line.split(',').map(s=>s.trim()))
-    .filter(r => r[0].endsWith(id));
-  return rows.map(r => ({party:r[1], person:r[2], votes: Number(r[3]), share: Number(r[4]), position: Number(r[5]), elected: r[6]==='true'}));
+export async function generateStaticParams() {
+  const seats = readJSON('constituencies.json')
+  return Object.keys(seats).map(id => ({ id }))
 }
 
-export default function Page({ params }){
+export default function Page({ params }) {
   const id = params.id
-  const seat = constituencies[id]
+  const seats = readJSON('constituencies.json')
+  const seat = seats[id]
   const res = readResults(id)
   const winner = res.find(r=>r.position===1)
+
   return (
     <main className="p-6 max-w-3xl mx-auto">
       <Link href="/">← Back</Link>
@@ -33,7 +40,7 @@ export default function Page({ params }){
           ))}
         </tbody>
       </table>
-      <p><small>Data: demo files in /public/data. Replace with real CSV/JSON later.</small></p>
+      <p><small>Demo data lives in /public/data.</small></p>
     </main>
   )
 }

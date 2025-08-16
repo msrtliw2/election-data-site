@@ -1,15 +1,24 @@
 import Link from 'next/link'
-import data from '../../../public/data/by_elections.json'
-import constituencies from '../../../public/data/constituencies.json'
+import fs from 'node:fs'
+import path from 'node:path'
 
-export async function generateStaticParams(){
-  return Object.keys(data).map(id=>({id}))
+function readJSON(rel) {
+  const p = path.join(process.cwd(), 'public', 'data', rel)
+  return JSON.parse(fs.readFileSync(p, 'utf-8'))
 }
 
-export default function Page({ params }){
+export async function generateStaticParams() {
+  const byes = readJSON('by_elections.json')
+  return Object.keys(byes).map(id => ({ id }))
+}
+
+export default function Page({ params }) {
   const id = params.id
-  const seat = constituencies[id]
-  const item = data[id]
+  const byes = readJSON('by_elections.json')
+  const seats = readJSON('constituencies.json')
+  const seat = seats[id]
+  const item = byes[id]
+
   return (
     <main className="p-6 max-w-3xl mx-auto">
       <Link href="/">← Back</Link>
@@ -20,7 +29,7 @@ export default function Page({ params }){
       <ul>
         {item?.candidates?.map((c,i)=>(<li key={i}>{c.name} — {c.party}</li>))}
       </ul>
-      <p><small>Replace /public/data/by_elections.json with real feed later.</small></p>
+      <p><small>Data from /public/data/*.json — replace later with real feeds.</small></p>
     </main>
   )
 }

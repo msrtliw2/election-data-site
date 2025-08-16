@@ -1,10 +1,17 @@
 import Link from 'next/link'
-import polls from '../../public/data/polls.json'
+import fs from 'node:fs'
+import path from 'node:path'
 import { Line } from 'react-chartjs-2'
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Legend, Tooltip, CategoryScale } from 'chart.js'
-ChartJS.register(LineElement, PointElement, LinearScale, Legend, Tooltip, CategoryScale);
+ChartJS.register(LineElement, PointElement, LinearScale, Legend, Tooltip, CategoryScale)
+
+function readPolls() {
+  const p = path.join(process.cwd(), 'public', 'data', 'polls.json')
+  return JSON.parse(fs.readFileSync(p, 'utf-8'))
+}
 
 export default function Page(){
+  const polls = readPolls()
   const parties = ['LAB','CON','REF','LD','GRN']
   const labels = polls.map(p=>p.fieldwork_end)
   const datasets = parties.map(party => ({
@@ -13,6 +20,7 @@ export default function Page(){
     borderWidth: 2,
     fill: false
   }))
+
   return (
     <main className="p-6 max-w-3xl mx-auto">
       <Link href="/">← Back</Link>

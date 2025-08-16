@@ -1,0 +1,26 @@
+[
+  {
+    "pollster": "YouGov",
+    "fieldwork_end": "2025-08-10",
+    "sample": 2000,
+    "shares": {
+      "LAB": 41,
+      "CON": 24,
+      "REF": 15,
+      "LD": 12,
+      "GRN": 6
+    }
+  },
+  {
+    "pollster": "Opinium",
+    "fieldwork_end": "2025-08-08",
+    "sample": 1800,
+    "shares": {
+      "LAB": 40,
+      "CON": 25,
+      "REF": 14,
+      "LD": 11,
+      "GRN": 7
+    }
+  }
+]

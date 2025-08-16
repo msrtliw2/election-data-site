@@ -1,0 +1,20 @@
+{
+  "E14000530": {
+    "cause": "Resignation",
+    "status": "announced",
+    "candidates": [
+      {
+        "name": "Taylor Reed",
+        "party": "CON"
+      },
+      {
+        "name": "Jordan Ali",
+        "party": "LAB"
+      },
+      {
+        "name": "Robin Park",
+        "party": "LD"
+      }
+    ]
+  }
+}

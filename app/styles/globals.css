@@ -1,0 +1,7 @@
+
+body { font-family: system-ui, Arial, sans-serif; margin:0; padding:0; }
+main { padding: 24px; }
+h1 { margin-bottom: 12px; }
+table { width:100%; border-collapse: collapse; margin: 12px 0;}
+td, th { border:1px solid #ddd; padding:8px; }
+small { color:#555; }

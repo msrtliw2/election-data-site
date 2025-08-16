@@ -1,0 +1,7 @@
+ballot_id,party_id,person,votes,share,position,elected
+ge_2024:E14000530,CON,Jane Smith,22000,45.2,1,true
+ge_2024:E14000530,LAB,Alex Brown,18000,37.0,2,false
+ge_2024:E14000530,LD,Kelly Stone,5000,10.3,3,false
+ge_2024:E14000531,LAB,Sam Lee,21000,44.0,1,true
+ge_2024:E14000531,CON,Chris Tan,20000,42.0,2,false
+ge_2024:E14000531,REF,Pat Jones,3000,6.3,3,false
